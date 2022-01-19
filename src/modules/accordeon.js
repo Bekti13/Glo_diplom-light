@@ -1,14 +1,21 @@
 const accordeon = () => {
-    const elementFAQ = document.querySelectorAll('.element')
-    const elementContent = document.querySelectorAll('.element-content')
+    const accordeon = document.querySelector('.accordeon')
+    const accordElem = accordeon.querySelectorAll('.element')
+    const accordText = accordeon.querySelectorAll('.element-content')
 
-    elementFAQ.forEach(elem => {
-        elem.addEventListener('click', ()=> {
-            elementFAQ.forEach(elem => {
-                
+    accordeon.addEventListener('click',(e)=>{
+        if (e.target.closest('.element')) {
+            let FaqBtn = e.target.closest('.element')
+            accordElem.forEach((faq, index)=> {
+                if(faq === FaqBtn) {
+                    faq.classList.add('active')
+                    accordText[index].style.display = 'block'
+                } else {
+                    faq.classList.remove('active')
+                    accordText[index].style.display = 'none'
+                }
             })
-
-        })
+        }
     })
 }
 

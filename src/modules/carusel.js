@@ -9,7 +9,7 @@ const carusel = () => {
     // счетчики
     let counter = 0;
     const stepSize = `400`;
-    console.log(stepSize)
+    
 
     const cssStyle = `
     <style> 

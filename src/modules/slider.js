@@ -25,7 +25,7 @@ const slider = () => {
     table[0].classList.add('active')
     item[0].classList.add('active')
      
-    let currentSlide = 0  //счетчик, будем увеличивать и по этому индексу доставать необходимый слайд из нод листа и передавать ему активный класс
+    let currentSlide = 0  
 
     const prevSlide = (elems, index, strClass) => {
         elems[index].classList.remove(strClass)
@@ -35,7 +35,7 @@ const slider = () => {
         elems[index].classList.add(strClass)
     }
 
-    const autoSlide = () => {   // чтобы слайды автоматически переключались
+    const autoSlide = () => {   
         prevSlide(table, currentSlide, 'active')
         prevSlide(item, currentSlide, 'active')
         currentSlide++
