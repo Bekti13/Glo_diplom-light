@@ -16,20 +16,31 @@ const sendForm = ({formId}) => {
             if(input.value === '') {
                 success = false;
             }
+            
             switch(true) {
                 case (input.name === "tel"): 
                     if (regTel.test(input.value)) {
                         success = false;
-                    }
+                        input.classList.add('error')
+                    } else if (input.value.length < 6) {
+                        success = false;
+                    } else if (input.value.length > 17) {
+                        success = false;
+                    } 
+
+                    
                 break;
                 case(input.name === "fio"):
                     if (regName.test(input.value)) {
                         success = false;
-                    }
+                    } else if (input.value.length < 2) {
+                        success = false
+                    } 
                 break;
             }
             
         })  
+        
         return success;
     }
     
@@ -61,12 +72,14 @@ const sendForm = ({formId}) => {
     if (validate(formElements)) {
         sendData(formBody)
             .then(data => {
+
                 statusBlock.textContent = successText
                 statusBlock.style.color = "red"
 
                 formElements.forEach(input => {
                     if(input.type !== 'submit') 
                         input.value = '';
+                        input.classList.remove('error')
                     
                 })
                 setTimeout(function(){
@@ -76,11 +89,12 @@ const sendForm = ({formId}) => {
             })
             .catch(error => {
                 statusBlock.textContent = errorText
+                
             })
     } else {
-        alert('Данные не валидны, заполните все поля формы!')
+        
         formElements.forEach(input => {
-            
+            input.classList.add('error')
             statusBlock.textContent = ''
             
         })  
@@ -95,7 +109,7 @@ const sendForm = ({formId}) => {
         form.addEventListener('submit', (e) => {
             e.preventDefault()
 
-            console.log(e.target);
+            
             submitForm()
         })
 
