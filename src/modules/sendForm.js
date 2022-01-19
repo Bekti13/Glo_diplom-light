@@ -13,6 +13,7 @@ const sendForm = ({formId}) => {
         let success = true
 
         list.forEach(input => {
+            
             if(input.value === '') {
                 success = false;
             }
@@ -24,18 +25,36 @@ const sendForm = ({formId}) => {
                         input.classList.add('error')
                     } else if (input.value.length < 6) {
                         success = false;
+                        input.classList.add('error')
                     } else if (input.value.length > 17) {
                         success = false;
+                        input.classList.add('error')
                     } 
+                    input.addEventListener('input',()=> {
+                        if (input.value.length > 6) {
+                            input.classList.remove('error')
+                        } else if (input.value.length < 6) {
+                            input.classList.add('error')
+                        }
+                    })
 
                     
                 break;
                 case(input.name === "fio"):
                     if (regName.test(input.value)) {
                         success = false;
+                        input.classList.add('error')
                     } else if (input.value.length < 2) {
                         success = false
+                        input.classList.add('error')
                     } 
+                    input.addEventListener('input',()=> {
+                        if (input.value.length > 2) {
+                            input.classList.remove('error')
+                        }  else if (input.value.length < 2) {
+                            input.classList.add('error')
+                        }
+                    })
                 break;
             }
             
@@ -72,14 +91,12 @@ const sendForm = ({formId}) => {
     if (validate(formElements)) {
         sendData(formBody)
             .then(data => {
-
                 statusBlock.textContent = successText
                 statusBlock.style.color = "red"
 
                 formElements.forEach(input => {
                     if(input.type !== 'submit') 
                         input.value = '';
-                        input.classList.remove('error')
                     
                 })
                 setTimeout(function(){
@@ -94,7 +111,7 @@ const sendForm = ({formId}) => {
     } else {
         
         formElements.forEach(input => {
-            input.classList.add('error')
+            
             statusBlock.textContent = ''
             
         })  
